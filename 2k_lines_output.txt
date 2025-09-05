@@ -1,0 +1,90 @@
+ARCHIDAMUS:
+Here's one measure; thou hast cease to take all fair.
+
+DUKE OF AUMERLAND:
+Camillo,
+That man dry kindly, Romeo.
+
+Nurse:
+When must have you did that Clarence?
+
+BLUNT:
+Come, spare me.
+
+LORD FITZWATER:
+Ay, ready, and Lewis slain; now she had leave it come.
+
+LORD STANLEY:
+No do for our great with all this good friends:
+Let the my becomes less resolute moved.
+
+DUKE OF YORK:
+Against her tending speed with all wroses! Can fear
+Lord Hastings is Aufidius to fight.
+His famy life, yet he hath in so many child,
+and appear where Oxford him upon his part;
+Say have so valiant a happy enlays properless
+Than it our breathless with heavy thousand trouble,
+And make me again with fisters me with kind;
+For thence it both these Princess:
+We have told the Earl of Northumberland
+Music down the tready unto our own affectious;
+And do not the tempts of fair Leontes?
+
+PERDITA:
+Let him talk of try you.
+
+LUCIO:
+Transported sometimonious shall he
+Camillo without see o'er 't!
+
+And:
+Glad'st thou this maide
+
+[ ]
+# New generations after 20K iterations, the last loss after bigger model with just 11k iterations was 1.18
+ix = torch.zeros((1,1),dtype=torch.long,device=device)
+print((decode(m.generate(ix,1000)[0].tolist())))
+
+With that authority's suppirit, respective it as it.
+
+LUCIIO:
+Well, my lord, how you have your fault obey? A day,
+thou shame of Som overthrow marquision
+so fairs a squarrel to our incient.
+
+ISABELLA:
+And when should that far i't, Sir, if he
+
+DUKE OF AUMERLE:
+Wrath, revenge you! dost the chair in so deal
+We have reck'd in reading, she, and say, and lament.
+
+KING RICHARD III:
+The othousand foot despised: and the devil seer
+How now! what he dost in vine earth, or one behind
+'Ang nothing the tender yet!' if I know,--
+This shall be unwilling clow--banish; I speak---than
+As treason my beaks me your throat,
+That from sudden caughter should love speed as meet.
+
+COMINIUS:
+What service is not so?
+
+SICINIUS:
+That's there?
+
+CORIOLANUS:
+A lady,
+So Marcius charges a father' wretchedness
+By vows from Lord Anne, sound twenty have leisuing.
+
+First Senator:
+Fie, we hope, camber a wife for thence.
+
+COMINIUS:
+Let white the king.
+
+AUTOLYCUS:
+Well, sir, but I will buzg again with me: for they I say,
+I'll de
