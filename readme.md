@@ -4,7 +4,7 @@
 
 There's only one way to deeply understand something - i.e get your hands dirty and start buidling it from the ground up!
 
-In this repo we successfully implement and train a small transformer - shakspeare GPT.
+In this repo we successfully implement and train a small *decoder only* transformer - shakspeare GPT.
 
 ### You'll find 3 main files
     - Bigram.ipynb -: The implementation of the transformer

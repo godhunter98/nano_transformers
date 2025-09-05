@@ -235,7 +235,7 @@ def main():
             optimizer.step()
         print(f"\nThe Final loss stands at {loss.item()}")
 
-    if input('\nPress i to see that the model has to say: ')=='i':
+    if input('\nPress i to see what the model has to say: ')=='i':
         # inference
         ix = torch.zeros((1,1),dtype=torch.long,device=device)
         print((decode(m.generate(ix,500)[0].tolist())))
