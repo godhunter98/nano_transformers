@@ -17,7 +17,7 @@ else:
 
 # Hyperparmeters
 batch_size = 64
-block_size = 256
+block_size = 256 # how many characters of context do we feed into the model at a time
 max_iters = 3000
 eval_intervals = 300
 learning_rate = 3e-4
