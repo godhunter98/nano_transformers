@@ -1,0 +1,1154 @@
+// Computational graph for the feedforward sweep
+digraph BigramLanguageModel {
+	graph [label=<<B>BigramLanguageModel</B><br align='left'/>179 tensors total (19.3 MB)<br align='left'/>158913 params total (629.4 KB)<br align='left'/>> labeljust=left labelloc=t ordering=out rankdir=BT]
+	node [ordering=out]
+	input_1 [label=<<b>input_1</b><br/>64x16 (8.1 KB)<br/>@input.idx> color=black fillcolor="#98FB98" fontcolor=black ordering=out shape=oval style="filled,solid"]
+	input_1 -> embedding_1_1 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	embedding_1_1 [label=<<b>embedding_1_1</b><br/>64x16x64 (256.1 KB)<br/>params: 65x64<br/>@token_embedding_table> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	embedding_1_1 -> add_1_4 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	arange_1_2 [label=<<b>arange_1_2</b><br/>x16 (240 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	arange_1_2 -> embedding_2_3 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+	embedding_2_3 [label=<<b>embedding_2_3</b><br/>16x64 (4.1 KB)<br/>params: 16x64<br/>@position_embedding_table> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,dashed"]
+	embedding_2_3 -> add_1_4 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+	add_1_4 [label=<<b>add_1_4</b><br/>64x16x64 (256.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	add_1_4 -> layernorm_1_5 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	add_1_4 -> add_2_52pass1 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	layernorm_1_5 [label=<<b>layernorm_1_5</b><br/>64x16x64 (256.1 KB)<br/>params: x64, x64<br/>@blocks.0.ln1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_1_6 [label=<<b>linear_1_6</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.0.sa.heads.0.key> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_2_7 [label=<<b>linear_2_7</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.0.sa.heads.0.query> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_3_8 [label=<<b>linear_3_8</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.0.sa.heads.0.value> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	transpose_1_9 [label=<<b>transpose_1_9</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_1_10 [label=<<b>matmul_1_10</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	mul_1_11 [label=<<b>mul_1_11</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_1_12 [label=<<b>getitem_1_12</b><br/>16x16 (1.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	eq_1_13 [label=<<b>eq_1_13</b><br/>16x16 (384 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	maskedfill_1_14 [label=<<b>maskedfill_1_14</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	softmax_1_15 [label=<<b>softmax_1_15</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_2_16 [label=<<b>matmul_2_16</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	linear_4_17 [label=<<b>linear_4_17</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.0.sa.heads.1.key> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_5_18 [label=<<b>linear_5_18</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.0.sa.heads.1.query> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_6_19 [label=<<b>linear_6_19</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.0.sa.heads.1.value> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	transpose_2_20 [label=<<b>transpose_2_20</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_3_21 [label=<<b>matmul_3_21</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	mul_2_22 [label=<<b>mul_2_22</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_2_23 [label=<<b>getitem_2_23</b><br/>16x16 (1.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	eq_2_24 [label=<<b>eq_2_24</b><br/>16x16 (384 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	maskedfill_2_25 [label=<<b>maskedfill_2_25</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	softmax_2_26 [label=<<b>softmax_2_26</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_4_27 [label=<<b>matmul_4_27</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	linear_7_28 [label=<<b>linear_7_28</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.0.sa.heads.2.key> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_8_29 [label=<<b>linear_8_29</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.0.sa.heads.2.query> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_9_30 [label=<<b>linear_9_30</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.0.sa.heads.2.value> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	transpose_3_31 [label=<<b>transpose_3_31</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_5_32 [label=<<b>matmul_5_32</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	mul_3_33 [label=<<b>mul_3_33</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_3_34 [label=<<b>getitem_3_34</b><br/>16x16 (1.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	eq_3_35 [label=<<b>eq_3_35</b><br/>16x16 (384 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	maskedfill_3_36 [label=<<b>maskedfill_3_36</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	softmax_3_37 [label=<<b>softmax_3_37</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_6_38 [label=<<b>matmul_6_38</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	linear_10_39 [label=<<b>linear_10_39</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.0.sa.heads.3.key> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_11_40 [label=<<b>linear_11_40</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.0.sa.heads.3.query> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_12_41 [label=<<b>linear_12_41</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.0.sa.heads.3.value> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	transpose_4_42 [label=<<b>transpose_4_42</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_7_43 [label=<<b>matmul_7_43</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	mul_4_44 [label=<<b>mul_4_44</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_4_45 [label=<<b>getitem_4_45</b><br/>16x16 (1.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	eq_4_46 [label=<<b>eq_4_46</b><br/>16x16 (384 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	maskedfill_4_47 [label=<<b>maskedfill_4_47</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	softmax_4_48 [label=<<b>softmax_4_48</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_8_49 [label=<<b>matmul_8_49</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	cat_1_50 [label=<<b>cat_1_50</b><br/>64x16x64 (256.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	linear_13_51 [label=<<b>linear_13_51</b><br/>64x16x64 (256.1 KB)<br/>params: 64x64, x64<br/>@blocks.0.sa.proj> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_2_52pass1 [label=<<b>add_2_52:1</b><br/>64x16x64 (256.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	layernorm_2_53 [label=<<b>layernorm_2_53</b><br/>64x16x64 (256.1 KB)<br/>params: x64, x64<br/>@blocks.0.ln2> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_14_54 [label=<<b>linear_14_54</b><br/>64x16x256 (1.0 MB)<br/>params: 256x64, x256<br/>@blocks.0.ffwd.net.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	relu_1_55 [label=<<b>relu_1_55</b><br/>64x16x256 (1.0 MB)<br/>@blocks.0.ffwd.net.1> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_15_56 [label=<<b>linear_15_56</b><br/>64x16x64 (256.1 KB)<br/>params: 64x256, x64<br/>@blocks.0.ffwd.net.2> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_2_52pass2 [label=<<b>add_2_52:2</b><br/>64x16x64 (256.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	layernorm_3_57 [label=<<b>layernorm_3_57</b><br/>64x16x64 (256.1 KB)<br/>params: x64, x64<br/>@blocks.1.ln1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_16_58 [label=<<b>linear_16_58</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.1.sa.heads.0.key> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_17_59 [label=<<b>linear_17_59</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.1.sa.heads.0.query> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_18_60 [label=<<b>linear_18_60</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.1.sa.heads.0.value> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	transpose_5_61 [label=<<b>transpose_5_61</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_9_62 [label=<<b>matmul_9_62</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	mul_5_63 [label=<<b>mul_5_63</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_5_64 [label=<<b>getitem_5_64</b><br/>16x16 (1.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	eq_5_65 [label=<<b>eq_5_65</b><br/>16x16 (384 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	maskedfill_5_66 [label=<<b>maskedfill_5_66</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	softmax_5_67 [label=<<b>softmax_5_67</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_10_68 [label=<<b>matmul_10_68</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	linear_19_69 [label=<<b>linear_19_69</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.1.sa.heads.1.key> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_20_70 [label=<<b>linear_20_70</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.1.sa.heads.1.query> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_21_71 [label=<<b>linear_21_71</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.1.sa.heads.1.value> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	transpose_6_72 [label=<<b>transpose_6_72</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_11_73 [label=<<b>matmul_11_73</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	mul_6_74 [label=<<b>mul_6_74</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_6_75 [label=<<b>getitem_6_75</b><br/>16x16 (1.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	eq_6_76 [label=<<b>eq_6_76</b><br/>16x16 (384 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	maskedfill_6_77 [label=<<b>maskedfill_6_77</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	softmax_6_78 [label=<<b>softmax_6_78</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_12_79 [label=<<b>matmul_12_79</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	linear_22_80 [label=<<b>linear_22_80</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.1.sa.heads.2.key> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_23_81 [label=<<b>linear_23_81</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.1.sa.heads.2.query> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_24_82 [label=<<b>linear_24_82</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.1.sa.heads.2.value> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	transpose_7_83 [label=<<b>transpose_7_83</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_13_84 [label=<<b>matmul_13_84</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	mul_7_85 [label=<<b>mul_7_85</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_7_86 [label=<<b>getitem_7_86</b><br/>16x16 (1.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	eq_7_87 [label=<<b>eq_7_87</b><br/>16x16 (384 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	maskedfill_7_88 [label=<<b>maskedfill_7_88</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	softmax_7_89 [label=<<b>softmax_7_89</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_14_90 [label=<<b>matmul_14_90</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	linear_25_91 [label=<<b>linear_25_91</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.1.sa.heads.3.key> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_26_92 [label=<<b>linear_26_92</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.1.sa.heads.3.query> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_27_93 [label=<<b>linear_27_93</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.1.sa.heads.3.value> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	transpose_8_94 [label=<<b>transpose_8_94</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_15_95 [label=<<b>matmul_15_95</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	mul_8_96 [label=<<b>mul_8_96</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_8_97 [label=<<b>getitem_8_97</b><br/>16x16 (1.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	eq_8_98 [label=<<b>eq_8_98</b><br/>16x16 (384 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	maskedfill_8_99 [label=<<b>maskedfill_8_99</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	softmax_8_100 [label=<<b>softmax_8_100</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_16_101 [label=<<b>matmul_16_101</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	cat_2_102 [label=<<b>cat_2_102</b><br/>64x16x64 (256.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	linear_28_103 [label=<<b>linear_28_103</b><br/>64x16x64 (256.1 KB)<br/>params: 64x64, x64<br/>@blocks.1.sa.proj> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_3_104pass1 [label=<<b>add_3_104:1</b><br/>64x16x64 (256.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	layernorm_4_105 [label=<<b>layernorm_4_105</b><br/>64x16x64 (256.1 KB)<br/>params: x64, x64<br/>@blocks.1.ln2> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_29_106 [label=<<b>linear_29_106</b><br/>64x16x256 (1.0 MB)<br/>params: 256x64, x256<br/>@blocks.1.ffwd.net.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	relu_2_107 [label=<<b>relu_2_107</b><br/>64x16x256 (1.0 MB)<br/>@blocks.1.ffwd.net.1> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_30_108 [label=<<b>linear_30_108</b><br/>64x16x64 (256.1 KB)<br/>params: 64x256, x64<br/>@blocks.1.ffwd.net.2> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_3_104pass2 [label=<<b>add_3_104:2</b><br/>64x16x64 (256.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	layernorm_5_109 [label=<<b>layernorm_5_109</b><br/>64x16x64 (256.1 KB)<br/>params: x64, x64<br/>@blocks.2.ln1> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_31_110 [label=<<b>linear_31_110</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.2.sa.heads.0.key> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_32_111 [label=<<b>linear_32_111</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.2.sa.heads.0.query> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_33_112 [label=<<b>linear_33_112</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.2.sa.heads.0.value> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	transpose_9_113 [label=<<b>transpose_9_113</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_17_114 [label=<<b>matmul_17_114</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	mul_9_115 [label=<<b>mul_9_115</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_9_116 [label=<<b>getitem_9_116</b><br/>16x16 (1.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	eq_9_117 [label=<<b>eq_9_117</b><br/>16x16 (384 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	maskedfill_9_118 [label=<<b>maskedfill_9_118</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	softmax_9_119 [label=<<b>softmax_9_119</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_18_120 [label=<<b>matmul_18_120</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	linear_34_121 [label=<<b>linear_34_121</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.2.sa.heads.1.key> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_35_122 [label=<<b>linear_35_122</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.2.sa.heads.1.query> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_36_123 [label=<<b>linear_36_123</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.2.sa.heads.1.value> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	transpose_10_124 [label=<<b>transpose_10_124</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_19_125 [label=<<b>matmul_19_125</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	mul_10_126 [label=<<b>mul_10_126</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_10_127 [label=<<b>getitem_10_127</b><br/>16x16 (1.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	eq_10_128 [label=<<b>eq_10_128</b><br/>16x16 (384 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	maskedfill_10_129 [label=<<b>maskedfill_10_129</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	softmax_10_130 [label=<<b>softmax_10_130</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_20_131 [label=<<b>matmul_20_131</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	linear_37_132 [label=<<b>linear_37_132</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.2.sa.heads.2.key> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_38_133 [label=<<b>linear_38_133</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.2.sa.heads.2.query> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_39_134 [label=<<b>linear_39_134</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.2.sa.heads.2.value> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	transpose_11_135 [label=<<b>transpose_11_135</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_21_136 [label=<<b>matmul_21_136</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	mul_11_137 [label=<<b>mul_11_137</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_11_138 [label=<<b>getitem_11_138</b><br/>16x16 (1.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	eq_11_139 [label=<<b>eq_11_139</b><br/>16x16 (384 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	maskedfill_11_140 [label=<<b>maskedfill_11_140</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	softmax_11_141 [label=<<b>softmax_11_141</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_22_142 [label=<<b>matmul_22_142</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	linear_40_143 [label=<<b>linear_40_143</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.2.sa.heads.3.key> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_41_144 [label=<<b>linear_41_144</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.2.sa.heads.3.query> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_42_145 [label=<<b>linear_42_145</b><br/>64x16x16 (64.1 KB)<br/>params: 16x64<br/>@blocks.2.sa.heads.3.value> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	transpose_12_146 [label=<<b>transpose_12_146</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_23_147 [label=<<b>matmul_23_147</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	mul_12_148 [label=<<b>mul_12_148</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	getitem_12_149 [label=<<b>getitem_12_149</b><br/>16x16 (1.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	eq_12_150 [label=<<b>eq_12_150</b><br/>16x16 (384 B)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,dashed"]
+	maskedfill_12_151 [label=<<b>maskedfill_12_151</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	softmax_12_152 [label=<<b>softmax_12_152</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	matmul_24_153 [label=<<b>matmul_24_153</b><br/>64x16x16 (64.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	cat_3_154 [label=<<b>cat_3_154</b><br/>64x16x64 (256.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	linear_43_155 [label=<<b>linear_43_155</b><br/>64x16x64 (256.1 KB)<br/>params: 64x64, x64<br/>@blocks.2.sa.proj> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_4_156pass1 [label=<<b>add_4_156:1</b><br/>64x16x64 (256.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	layernorm_6_157 [label=<<b>layernorm_6_157</b><br/>64x16x64 (256.1 KB)<br/>params: x64, x64<br/>@blocks.2.ln2> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_44_158 [label=<<b>linear_44_158</b><br/>64x16x256 (1.0 MB)<br/>params: 256x64, x256<br/>@blocks.2.ffwd.net.0> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	relu_3_159 [label=<<b>relu_3_159</b><br/>64x16x256 (1.0 MB)<br/>@blocks.2.ffwd.net.1> color=black fillcolor=white fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_45_160 [label=<<b>linear_45_160</b><br/>64x16x64 (256.1 KB)<br/>params: 64x256, x64<br/>@blocks.2.ffwd.net.2> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	add_4_156pass2 [label=<<b>add_4_156:2</b><br/>64x16x64 (256.1 KB)> color=black fillcolor=white fontcolor=black ordering=out shape=oval style="filled,solid"]
+	layernorm_7_161 [label=<<b>layernorm_7_161</b><br/>64x16x64 (256.1 KB)<br/>params: x64, x64<br/>@blocks.3> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	layernorm_7_161 -> linear_46_162 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	linear_46_162 [label=<<b>linear_46_162</b><br/>64x16x65 (260.1 KB)<br/>params: 65x64, x65<br/>@lm_head> color=black fillcolor="#E6E6E6" fontcolor=black ordering=out shape=box style="filled,solid"]
+	linear_46_162 -> output_1 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	output_1 [label=<<b>output_1</b><br/>64x16x65 (260.1 KB)<br/>@output.0> color=black fillcolor="#ff9999" fontcolor=black ordering=out shape=oval style="filled,solid"]
+	{
+		rank=sink
+		output_1
+	}
+	subgraph cluster_token_embedding_table_pass1 {
+		fillcolor=white label=<<B>@token_embedding_table</B><br align='left'/>(Embedding)<br align='left'/>> labelloc=b penwidth=5.0 style="filled,dashed"
+	}
+	subgraph cluster_position_embedding_table_pass1 {
+		fillcolor=white label=<<B>@position_embedding_table</B><br align='left'/>(Embedding)<br align='left'/>> labelloc=b penwidth=5.0 style="filled,dashed"
+	}
+	subgraph cluster_blocks_pass1 {
+		fillcolor=white label=<<B>@blocks</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=5.0 style="filled,solid"
+		add_2_52pass2 -> layernorm_3_57 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		add_2_52pass2 -> add_3_104pass1 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		add_3_104pass2 -> layernorm_5_109 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		add_3_104pass2 -> add_4_156pass1 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		add_4_156pass2 -> layernorm_7_161 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+	}
+	subgraph cluster_lm_head_pass1 {
+		fillcolor=white label=<<B>@lm_head</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=5.0 style="filled,dashed"
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			fillcolor=white label=<<B>@blocks.0</B><br align='left'/>(Block)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+			layernorm_1_5 -> linear_1_6 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_1_5 -> linear_2_7 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_1_5 -> linear_3_8 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_1_5 -> linear_4_17 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_1_5 -> linear_5_18 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_1_5 -> linear_6_19 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_1_5 -> linear_7_28 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_1_5 -> linear_8_29 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_1_5 -> linear_9_30 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_1_5 -> linear_10_39 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_1_5 -> linear_11_40 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_1_5 -> linear_12_41 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			linear_13_51 -> add_2_52pass1 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			add_2_52pass1 -> layernorm_2_53 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			add_2_52pass1 -> add_2_52pass2 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_2_53 -> linear_14_54 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			linear_15_56 -> add_2_52pass2 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			fillcolor=white label=<<B>@blocks.1</B><br align='left'/>(Block)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+			layernorm_3_57 -> linear_16_58 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_3_57 -> linear_17_59 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_3_57 -> linear_18_60 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_3_57 -> linear_19_69 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_3_57 -> linear_20_70 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_3_57 -> linear_21_71 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_3_57 -> linear_22_80 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_3_57 -> linear_23_81 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_3_57 -> linear_24_82 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_3_57 -> linear_25_91 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_3_57 -> linear_26_92 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_3_57 -> linear_27_93 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			linear_28_103 -> add_3_104pass1 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			add_3_104pass1 -> layernorm_4_105 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			add_3_104pass1 -> add_3_104pass2 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_4_105 -> linear_29_106 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			linear_30_108 -> add_3_104pass2 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			fillcolor=white label=<<B>@blocks.2</B><br align='left'/>(Block)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,solid"
+			layernorm_5_109 -> linear_31_110 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_5_109 -> linear_32_111 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_5_109 -> linear_33_112 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_5_109 -> linear_34_121 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_5_109 -> linear_35_122 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_5_109 -> linear_36_123 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_5_109 -> linear_37_132 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_5_109 -> linear_38_133 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_5_109 -> linear_39_134 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_5_109 -> linear_40_143 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_5_109 -> linear_41_144 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_5_109 -> linear_42_145 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			linear_43_155 -> add_4_156pass1 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			add_4_156pass1 -> layernorm_6_157 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			add_4_156pass1 -> add_4_156pass2 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			layernorm_6_157 -> linear_44_158 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			linear_45_160 -> add_4_156pass2 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.3_pass1" {
+			fillcolor=white label=<<B>@blocks.3</B><br align='left'/>(LayerNorm)<br align='left'/>> labelloc=b penwidth=4.25 style="filled,dashed"
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.ln1_pass1" {
+				fillcolor=white label=<<B>@blocks.0.ln1</B><br align='left'/>(LayerNorm)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.sa_pass1" {
+				fillcolor=white label=<<B>@blocks.0.sa</B><br align='left'/>(MultiHeadAttention)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				matmul_2_16 -> cat_1_50 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				matmul_4_27 -> cat_1_50 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				matmul_6_38 -> cat_1_50 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				matmul_8_49 -> cat_1_50 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				cat_1_50 -> linear_13_51 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.ln2_pass1" {
+				fillcolor=white label=<<B>@blocks.0.ln2</B><br align='left'/>(LayerNorm)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.ffwd_pass1" {
+				fillcolor=white label=<<B>@blocks.0.ffwd</B><br align='left'/>(FeedForward)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.ln1_pass1" {
+				fillcolor=white label=<<B>@blocks.1.ln1</B><br align='left'/>(LayerNorm)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.sa_pass1" {
+				fillcolor=white label=<<B>@blocks.1.sa</B><br align='left'/>(MultiHeadAttention)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				matmul_10_68 -> cat_2_102 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				matmul_12_79 -> cat_2_102 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				matmul_14_90 -> cat_2_102 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				matmul_16_101 -> cat_2_102 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				cat_2_102 -> linear_28_103 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.ln2_pass1" {
+				fillcolor=white label=<<B>@blocks.1.ln2</B><br align='left'/>(LayerNorm)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.ffwd_pass1" {
+				fillcolor=white label=<<B>@blocks.1.ffwd</B><br align='left'/>(FeedForward)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.ln1_pass1" {
+				fillcolor=white label=<<B>@blocks.2.ln1</B><br align='left'/>(LayerNorm)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.sa_pass1" {
+				fillcolor=white label=<<B>@blocks.2.sa</B><br align='left'/>(MultiHeadAttention)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+				matmul_18_120 -> cat_3_154 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				matmul_20_131 -> cat_3_154 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				matmul_22_142 -> cat_3_154 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				matmul_24_153 -> cat_3_154 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				cat_3_154 -> linear_43_155 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.ln2_pass1" {
+				fillcolor=white label=<<B>@blocks.2.ln2</B><br align='left'/>(LayerNorm)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,dashed"
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.ffwd_pass1" {
+				fillcolor=white label=<<B>@blocks.2.ffwd</B><br align='left'/>(FeedForward)<br align='left'/>> labelloc=b penwidth=3.5 style="filled,solid"
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.sa_pass1" {
+				subgraph "cluster_blocks.0.sa.heads.0_pass1" {
+					fillcolor=white label=<<B>@blocks.0.sa.heads.0</B><br align='left'/>(Head)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					linear_1_6 -> transpose_1_9 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_2_7 -> matmul_1_10 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_3_8 -> matmul_2_16 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					transpose_1_9 -> matmul_1_10 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					matmul_1_10 -> mul_1_11 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					mul_1_11 -> maskedfill_1_14 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					getitem_1_12 -> eq_1_13 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					eq_1_13 -> maskedfill_1_14 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					maskedfill_1_14 -> softmax_1_15 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					softmax_1_15 -> matmul_2_16 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.sa_pass1" {
+				subgraph "cluster_blocks.0.sa.heads.1_pass1" {
+					fillcolor=white label=<<B>@blocks.0.sa.heads.1</B><br align='left'/>(Head)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					linear_4_17 -> transpose_2_20 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_5_18 -> matmul_3_21 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_6_19 -> matmul_4_27 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					transpose_2_20 -> matmul_3_21 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					matmul_3_21 -> mul_2_22 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					mul_2_22 -> maskedfill_2_25 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					getitem_2_23 -> eq_2_24 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					eq_2_24 -> maskedfill_2_25 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					maskedfill_2_25 -> softmax_2_26 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					softmax_2_26 -> matmul_4_27 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.sa_pass1" {
+				subgraph "cluster_blocks.0.sa.heads.2_pass1" {
+					fillcolor=white label=<<B>@blocks.0.sa.heads.2</B><br align='left'/>(Head)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					linear_7_28 -> transpose_3_31 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_8_29 -> matmul_5_32 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_9_30 -> matmul_6_38 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					transpose_3_31 -> matmul_5_32 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					matmul_5_32 -> mul_3_33 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					mul_3_33 -> maskedfill_3_36 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					getitem_3_34 -> eq_3_35 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					eq_3_35 -> maskedfill_3_36 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					maskedfill_3_36 -> softmax_3_37 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					softmax_3_37 -> matmul_6_38 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.sa_pass1" {
+				subgraph "cluster_blocks.0.sa.heads.3_pass1" {
+					fillcolor=white label=<<B>@blocks.0.sa.heads.3</B><br align='left'/>(Head)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					linear_10_39 -> transpose_4_42 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_11_40 -> matmul_7_43 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_12_41 -> matmul_8_49 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					transpose_4_42 -> matmul_7_43 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					matmul_7_43 -> mul_4_44 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					mul_4_44 -> maskedfill_4_47 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					getitem_4_45 -> eq_4_46 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					eq_4_46 -> maskedfill_4_47 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					maskedfill_4_47 -> softmax_4_48 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					softmax_4_48 -> matmul_8_49 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.sa_pass1" {
+				subgraph "cluster_blocks.0.sa.proj_pass1" {
+					fillcolor=white label=<<B>@blocks.0.sa.proj</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.ffwd_pass1" {
+				subgraph "cluster_blocks.0.ffwd.net_pass1" {
+					fillcolor=white label=<<B>@blocks.0.ffwd.net</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					linear_14_54 -> relu_1_55 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					relu_1_55 -> linear_15_56 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.sa_pass1" {
+				subgraph "cluster_blocks.1.sa.heads.0_pass1" {
+					fillcolor=white label=<<B>@blocks.1.sa.heads.0</B><br align='left'/>(Head)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					linear_16_58 -> transpose_5_61 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_17_59 -> matmul_9_62 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_18_60 -> matmul_10_68 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					transpose_5_61 -> matmul_9_62 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					matmul_9_62 -> mul_5_63 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					mul_5_63 -> maskedfill_5_66 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					getitem_5_64 -> eq_5_65 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					eq_5_65 -> maskedfill_5_66 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					maskedfill_5_66 -> softmax_5_67 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					softmax_5_67 -> matmul_10_68 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.sa_pass1" {
+				subgraph "cluster_blocks.1.sa.heads.1_pass1" {
+					fillcolor=white label=<<B>@blocks.1.sa.heads.1</B><br align='left'/>(Head)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					linear_19_69 -> transpose_6_72 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_20_70 -> matmul_11_73 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_21_71 -> matmul_12_79 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					transpose_6_72 -> matmul_11_73 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					matmul_11_73 -> mul_6_74 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					mul_6_74 -> maskedfill_6_77 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					getitem_6_75 -> eq_6_76 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					eq_6_76 -> maskedfill_6_77 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					maskedfill_6_77 -> softmax_6_78 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					softmax_6_78 -> matmul_12_79 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.sa_pass1" {
+				subgraph "cluster_blocks.1.sa.heads.2_pass1" {
+					fillcolor=white label=<<B>@blocks.1.sa.heads.2</B><br align='left'/>(Head)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					linear_22_80 -> transpose_7_83 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_23_81 -> matmul_13_84 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_24_82 -> matmul_14_90 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					transpose_7_83 -> matmul_13_84 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					matmul_13_84 -> mul_7_85 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					mul_7_85 -> maskedfill_7_88 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					getitem_7_86 -> eq_7_87 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					eq_7_87 -> maskedfill_7_88 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					maskedfill_7_88 -> softmax_7_89 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					softmax_7_89 -> matmul_14_90 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.sa_pass1" {
+				subgraph "cluster_blocks.1.sa.heads.3_pass1" {
+					fillcolor=white label=<<B>@blocks.1.sa.heads.3</B><br align='left'/>(Head)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					linear_25_91 -> transpose_8_94 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_26_92 -> matmul_15_95 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_27_93 -> matmul_16_101 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					transpose_8_94 -> matmul_15_95 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					matmul_15_95 -> mul_8_96 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					mul_8_96 -> maskedfill_8_99 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					getitem_8_97 -> eq_8_98 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					eq_8_98 -> maskedfill_8_99 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					maskedfill_8_99 -> softmax_8_100 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					softmax_8_100 -> matmul_16_101 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.sa_pass1" {
+				subgraph "cluster_blocks.1.sa.proj_pass1" {
+					fillcolor=white label=<<B>@blocks.1.sa.proj</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.ffwd_pass1" {
+				subgraph "cluster_blocks.1.ffwd.net_pass1" {
+					fillcolor=white label=<<B>@blocks.1.ffwd.net</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					linear_29_106 -> relu_2_107 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					relu_2_107 -> linear_30_108 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.sa_pass1" {
+				subgraph "cluster_blocks.2.sa.heads.0_pass1" {
+					fillcolor=white label=<<B>@blocks.2.sa.heads.0</B><br align='left'/>(Head)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					linear_31_110 -> transpose_9_113 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_32_111 -> matmul_17_114 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_33_112 -> matmul_18_120 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					transpose_9_113 -> matmul_17_114 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					matmul_17_114 -> mul_9_115 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					mul_9_115 -> maskedfill_9_118 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					getitem_9_116 -> eq_9_117 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					eq_9_117 -> maskedfill_9_118 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					maskedfill_9_118 -> softmax_9_119 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					softmax_9_119 -> matmul_18_120 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.sa_pass1" {
+				subgraph "cluster_blocks.2.sa.heads.1_pass1" {
+					fillcolor=white label=<<B>@blocks.2.sa.heads.1</B><br align='left'/>(Head)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					linear_34_121 -> transpose_10_124 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_35_122 -> matmul_19_125 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_36_123 -> matmul_20_131 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					transpose_10_124 -> matmul_19_125 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					matmul_19_125 -> mul_10_126 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					mul_10_126 -> maskedfill_10_129 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					getitem_10_127 -> eq_10_128 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					eq_10_128 -> maskedfill_10_129 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					maskedfill_10_129 -> softmax_10_130 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					softmax_10_130 -> matmul_20_131 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.sa_pass1" {
+				subgraph "cluster_blocks.2.sa.heads.2_pass1" {
+					fillcolor=white label=<<B>@blocks.2.sa.heads.2</B><br align='left'/>(Head)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					linear_37_132 -> transpose_11_135 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_38_133 -> matmul_21_136 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_39_134 -> matmul_22_142 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					transpose_11_135 -> matmul_21_136 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					matmul_21_136 -> mul_11_137 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					mul_11_137 -> maskedfill_11_140 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					getitem_11_138 -> eq_11_139 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					eq_11_139 -> maskedfill_11_140 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					maskedfill_11_140 -> softmax_11_141 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					softmax_11_141 -> matmul_22_142 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.sa_pass1" {
+				subgraph "cluster_blocks.2.sa.heads.3_pass1" {
+					fillcolor=white label=<<B>@blocks.2.sa.heads.3</B><br align='left'/>(Head)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					linear_40_143 -> transpose_12_146 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_41_144 -> matmul_23_147 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					linear_42_145 -> matmul_24_153 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					transpose_12_146 -> matmul_23_147 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					matmul_23_147 -> mul_12_148 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					mul_12_148 -> maskedfill_12_151 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					getitem_12_149 -> eq_12_150 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					eq_12_150 -> maskedfill_12_151 [label=<<FONT POINT-SIZE='10'><b>arg 1</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=dashed]
+					maskedfill_12_151 -> softmax_12_152 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					softmax_12_152 -> matmul_24_153 [label=<<FONT POINT-SIZE='10'><b>arg 0</b></FONT>> arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.sa_pass1" {
+				subgraph "cluster_blocks.2.sa.proj_pass1" {
+					fillcolor=white label=<<B>@blocks.2.sa.proj</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,dashed"
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.ffwd_pass1" {
+				subgraph "cluster_blocks.2.ffwd.net_pass1" {
+					fillcolor=white label=<<B>@blocks.2.ffwd.net</B><br align='left'/>(Sequential)<br align='left'/>> labelloc=b penwidth=2.75 style="filled,solid"
+					linear_44_158 -> relu_3_159 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+					relu_3_159 -> linear_45_160 [arrowsize=.7 color=black fontcolor=black labelfontsize=8 style=solid]
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.sa_pass1" {
+				subgraph "cluster_blocks.0.sa.heads.0_pass1" {
+					subgraph "cluster_blocks.0.sa.heads.0.key_pass1" {
+						fillcolor=white label=<<B>@blocks.0.sa.heads.0.key</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.sa_pass1" {
+				subgraph "cluster_blocks.0.sa.heads.0_pass1" {
+					subgraph "cluster_blocks.0.sa.heads.0.query_pass1" {
+						fillcolor=white label=<<B>@blocks.0.sa.heads.0.query</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.sa_pass1" {
+				subgraph "cluster_blocks.0.sa.heads.0_pass1" {
+					subgraph "cluster_blocks.0.sa.heads.0.value_pass1" {
+						fillcolor=white label=<<B>@blocks.0.sa.heads.0.value</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.sa_pass1" {
+				subgraph "cluster_blocks.0.sa.heads.1_pass1" {
+					subgraph "cluster_blocks.0.sa.heads.1.key_pass1" {
+						fillcolor=white label=<<B>@blocks.0.sa.heads.1.key</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.sa_pass1" {
+				subgraph "cluster_blocks.0.sa.heads.1_pass1" {
+					subgraph "cluster_blocks.0.sa.heads.1.query_pass1" {
+						fillcolor=white label=<<B>@blocks.0.sa.heads.1.query</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.sa_pass1" {
+				subgraph "cluster_blocks.0.sa.heads.1_pass1" {
+					subgraph "cluster_blocks.0.sa.heads.1.value_pass1" {
+						fillcolor=white label=<<B>@blocks.0.sa.heads.1.value</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.sa_pass1" {
+				subgraph "cluster_blocks.0.sa.heads.2_pass1" {
+					subgraph "cluster_blocks.0.sa.heads.2.key_pass1" {
+						fillcolor=white label=<<B>@blocks.0.sa.heads.2.key</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.sa_pass1" {
+				subgraph "cluster_blocks.0.sa.heads.2_pass1" {
+					subgraph "cluster_blocks.0.sa.heads.2.query_pass1" {
+						fillcolor=white label=<<B>@blocks.0.sa.heads.2.query</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.sa_pass1" {
+				subgraph "cluster_blocks.0.sa.heads.2_pass1" {
+					subgraph "cluster_blocks.0.sa.heads.2.value_pass1" {
+						fillcolor=white label=<<B>@blocks.0.sa.heads.2.value</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.sa_pass1" {
+				subgraph "cluster_blocks.0.sa.heads.3_pass1" {
+					subgraph "cluster_blocks.0.sa.heads.3.key_pass1" {
+						fillcolor=white label=<<B>@blocks.0.sa.heads.3.key</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.sa_pass1" {
+				subgraph "cluster_blocks.0.sa.heads.3_pass1" {
+					subgraph "cluster_blocks.0.sa.heads.3.query_pass1" {
+						fillcolor=white label=<<B>@blocks.0.sa.heads.3.query</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.sa_pass1" {
+				subgraph "cluster_blocks.0.sa.heads.3_pass1" {
+					subgraph "cluster_blocks.0.sa.heads.3.value_pass1" {
+						fillcolor=white label=<<B>@blocks.0.sa.heads.3.value</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.ffwd_pass1" {
+				subgraph "cluster_blocks.0.ffwd.net_pass1" {
+					subgraph "cluster_blocks.0.ffwd.net.0_pass1" {
+						fillcolor=white label=<<B>@blocks.0.ffwd.net.0</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.ffwd_pass1" {
+				subgraph "cluster_blocks.0.ffwd.net_pass1" {
+					subgraph "cluster_blocks.0.ffwd.net.1_pass1" {
+						fillcolor=white label=<<B>@blocks.0.ffwd.net.1</B><br align='left'/>(ReLU)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.0_pass1" {
+			subgraph "cluster_blocks.0.ffwd_pass1" {
+				subgraph "cluster_blocks.0.ffwd.net_pass1" {
+					subgraph "cluster_blocks.0.ffwd.net.2_pass1" {
+						fillcolor=white label=<<B>@blocks.0.ffwd.net.2</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.sa_pass1" {
+				subgraph "cluster_blocks.1.sa.heads.0_pass1" {
+					subgraph "cluster_blocks.1.sa.heads.0.key_pass1" {
+						fillcolor=white label=<<B>@blocks.1.sa.heads.0.key</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.sa_pass1" {
+				subgraph "cluster_blocks.1.sa.heads.0_pass1" {
+					subgraph "cluster_blocks.1.sa.heads.0.query_pass1" {
+						fillcolor=white label=<<B>@blocks.1.sa.heads.0.query</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.sa_pass1" {
+				subgraph "cluster_blocks.1.sa.heads.0_pass1" {
+					subgraph "cluster_blocks.1.sa.heads.0.value_pass1" {
+						fillcolor=white label=<<B>@blocks.1.sa.heads.0.value</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.sa_pass1" {
+				subgraph "cluster_blocks.1.sa.heads.1_pass1" {
+					subgraph "cluster_blocks.1.sa.heads.1.key_pass1" {
+						fillcolor=white label=<<B>@blocks.1.sa.heads.1.key</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.sa_pass1" {
+				subgraph "cluster_blocks.1.sa.heads.1_pass1" {
+					subgraph "cluster_blocks.1.sa.heads.1.query_pass1" {
+						fillcolor=white label=<<B>@blocks.1.sa.heads.1.query</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.sa_pass1" {
+				subgraph "cluster_blocks.1.sa.heads.1_pass1" {
+					subgraph "cluster_blocks.1.sa.heads.1.value_pass1" {
+						fillcolor=white label=<<B>@blocks.1.sa.heads.1.value</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.sa_pass1" {
+				subgraph "cluster_blocks.1.sa.heads.2_pass1" {
+					subgraph "cluster_blocks.1.sa.heads.2.key_pass1" {
+						fillcolor=white label=<<B>@blocks.1.sa.heads.2.key</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.sa_pass1" {
+				subgraph "cluster_blocks.1.sa.heads.2_pass1" {
+					subgraph "cluster_blocks.1.sa.heads.2.query_pass1" {
+						fillcolor=white label=<<B>@blocks.1.sa.heads.2.query</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.sa_pass1" {
+				subgraph "cluster_blocks.1.sa.heads.2_pass1" {
+					subgraph "cluster_blocks.1.sa.heads.2.value_pass1" {
+						fillcolor=white label=<<B>@blocks.1.sa.heads.2.value</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.sa_pass1" {
+				subgraph "cluster_blocks.1.sa.heads.3_pass1" {
+					subgraph "cluster_blocks.1.sa.heads.3.key_pass1" {
+						fillcolor=white label=<<B>@blocks.1.sa.heads.3.key</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.sa_pass1" {
+				subgraph "cluster_blocks.1.sa.heads.3_pass1" {
+					subgraph "cluster_blocks.1.sa.heads.3.query_pass1" {
+						fillcolor=white label=<<B>@blocks.1.sa.heads.3.query</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.sa_pass1" {
+				subgraph "cluster_blocks.1.sa.heads.3_pass1" {
+					subgraph "cluster_blocks.1.sa.heads.3.value_pass1" {
+						fillcolor=white label=<<B>@blocks.1.sa.heads.3.value</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.ffwd_pass1" {
+				subgraph "cluster_blocks.1.ffwd.net_pass1" {
+					subgraph "cluster_blocks.1.ffwd.net.0_pass1" {
+						fillcolor=white label=<<B>@blocks.1.ffwd.net.0</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.ffwd_pass1" {
+				subgraph "cluster_blocks.1.ffwd.net_pass1" {
+					subgraph "cluster_blocks.1.ffwd.net.1_pass1" {
+						fillcolor=white label=<<B>@blocks.1.ffwd.net.1</B><br align='left'/>(ReLU)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.1_pass1" {
+			subgraph "cluster_blocks.1.ffwd_pass1" {
+				subgraph "cluster_blocks.1.ffwd.net_pass1" {
+					subgraph "cluster_blocks.1.ffwd.net.2_pass1" {
+						fillcolor=white label=<<B>@blocks.1.ffwd.net.2</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.sa_pass1" {
+				subgraph "cluster_blocks.2.sa.heads.0_pass1" {
+					subgraph "cluster_blocks.2.sa.heads.0.key_pass1" {
+						fillcolor=white label=<<B>@blocks.2.sa.heads.0.key</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.sa_pass1" {
+				subgraph "cluster_blocks.2.sa.heads.0_pass1" {
+					subgraph "cluster_blocks.2.sa.heads.0.query_pass1" {
+						fillcolor=white label=<<B>@blocks.2.sa.heads.0.query</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.sa_pass1" {
+				subgraph "cluster_blocks.2.sa.heads.0_pass1" {
+					subgraph "cluster_blocks.2.sa.heads.0.value_pass1" {
+						fillcolor=white label=<<B>@blocks.2.sa.heads.0.value</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.sa_pass1" {
+				subgraph "cluster_blocks.2.sa.heads.1_pass1" {
+					subgraph "cluster_blocks.2.sa.heads.1.key_pass1" {
+						fillcolor=white label=<<B>@blocks.2.sa.heads.1.key</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.sa_pass1" {
+				subgraph "cluster_blocks.2.sa.heads.1_pass1" {
+					subgraph "cluster_blocks.2.sa.heads.1.query_pass1" {
+						fillcolor=white label=<<B>@blocks.2.sa.heads.1.query</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.sa_pass1" {
+				subgraph "cluster_blocks.2.sa.heads.1_pass1" {
+					subgraph "cluster_blocks.2.sa.heads.1.value_pass1" {
+						fillcolor=white label=<<B>@blocks.2.sa.heads.1.value</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.sa_pass1" {
+				subgraph "cluster_blocks.2.sa.heads.2_pass1" {
+					subgraph "cluster_blocks.2.sa.heads.2.key_pass1" {
+						fillcolor=white label=<<B>@blocks.2.sa.heads.2.key</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.sa_pass1" {
+				subgraph "cluster_blocks.2.sa.heads.2_pass1" {
+					subgraph "cluster_blocks.2.sa.heads.2.query_pass1" {
+						fillcolor=white label=<<B>@blocks.2.sa.heads.2.query</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.sa_pass1" {
+				subgraph "cluster_blocks.2.sa.heads.2_pass1" {
+					subgraph "cluster_blocks.2.sa.heads.2.value_pass1" {
+						fillcolor=white label=<<B>@blocks.2.sa.heads.2.value</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.sa_pass1" {
+				subgraph "cluster_blocks.2.sa.heads.3_pass1" {
+					subgraph "cluster_blocks.2.sa.heads.3.key_pass1" {
+						fillcolor=white label=<<B>@blocks.2.sa.heads.3.key</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.sa_pass1" {
+				subgraph "cluster_blocks.2.sa.heads.3_pass1" {
+					subgraph "cluster_blocks.2.sa.heads.3.query_pass1" {
+						fillcolor=white label=<<B>@blocks.2.sa.heads.3.query</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.sa_pass1" {
+				subgraph "cluster_blocks.2.sa.heads.3_pass1" {
+					subgraph "cluster_blocks.2.sa.heads.3.value_pass1" {
+						fillcolor=white label=<<B>@blocks.2.sa.heads.3.value</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.ffwd_pass1" {
+				subgraph "cluster_blocks.2.ffwd.net_pass1" {
+					subgraph "cluster_blocks.2.ffwd.net.0_pass1" {
+						fillcolor=white label=<<B>@blocks.2.ffwd.net.0</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.ffwd_pass1" {
+				subgraph "cluster_blocks.2.ffwd.net_pass1" {
+					subgraph "cluster_blocks.2.ffwd.net.1_pass1" {
+						fillcolor=white label=<<B>@blocks.2.ffwd.net.1</B><br align='left'/>(ReLU)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+	subgraph cluster_blocks_pass1 {
+		subgraph "cluster_blocks.2_pass1" {
+			subgraph "cluster_blocks.2.ffwd_pass1" {
+				subgraph "cluster_blocks.2.ffwd.net_pass1" {
+					subgraph "cluster_blocks.2.ffwd.net.2_pass1" {
+						fillcolor=white label=<<B>@blocks.2.ffwd.net.2</B><br align='left'/>(Linear)<br align='left'/>> labelloc=b penwidth=2.0 style="filled,dashed"
+					}
+				}
+			}
+		}
+	}
+}

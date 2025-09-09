@@ -7,7 +7,6 @@ import os
 import math
 import time
 from tqdm import trange
-# import keyboard
 
 # downloading our dataset
 if not os.path.exists('input.txt'):
@@ -82,7 +81,6 @@ class Head(nn.Module):
         self.value = nn.Linear(n_embd,head_size,bias=False)
         self.register_buffer('tril',torch.tril(torch.ones(block_size,block_size)))
         self.dropout = nn.Dropout(dropout)
-        self.head_size = head_size
 
     def forward(self,x):
         B,T,C = x.shape # B,T,C
@@ -93,6 +91,8 @@ class Head(nn.Module):
         wei = q @ k.transpose(-2,-1) * (self.head_size**-0.5) # B,T,C @ B,C,T => # B,T,T #we also a add a normalisation term 
         wei = wei.masked_fill(self.tril[:T,:T]==0,float('-inf')) # type: ignore # B,T,T
         wei = F.softmax(wei,dim=-1) # B,T,T
+
+        # Before grabbing in the relevant payloads from 'interesting' tokens we turn off some activations
         wei = self.dropout(wei)
 
         out = wei @ v # B,T,T @ B,T,C => B,T,C
@@ -116,6 +116,7 @@ class MultiHeadAttention(nn.Module):
         out = torch.cat([h(x) for h in self.heads],dim=-1)
         out = self.dropout(self.proj(out)) #we project because we want to fork-off to do some computation, then merge it into the residual connection
         return out
+    
 class FeedForward(nn.Module):
     '''Simple linear layer followed by a non-linearity'''
     # FF applies a mini brain only to that token, with no interaction with others
